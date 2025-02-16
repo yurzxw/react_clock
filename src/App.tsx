@@ -13,11 +13,11 @@ type State = {
   clockName: string;
 };
 
-export class App extends React.Component<State> {
+export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     hasClock: true,
     today: new Date(),
-    clockName: 'Clock-0',
+    clockName: getRandomName(),
   };
 
   private timer1: number | null = null;
@@ -60,8 +60,8 @@ export class App extends React.Component<State> {
   componentWillUnmount() {
     window.clearInterval(this.timer1);
     window.clearInterval(this.timer2);
-    document.removeEventListener('click', this.rightClick);
-    document.removeEventListener('contextmenu', this.leftClick);
+    document.removeEventListener('click', this.leftClick);
+    document.removeEventListener('contextmenu', this.rightClick);
   }
 
   componentDidUpdate(prevProps: {}, prevState: State) {
